@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconteck_task/config/dependency_injection/DP.dart';
+import 'package:iconteck_task/config/extensions/navigate_extension.dart';
 import 'package:iconteck_task/config/prefs/prefs.dart';
 import 'package:iconteck_task/config/prefs/prefs_keys.dart';
 import 'package:iconteck_task/core/app_colors.dart';
 import 'package:iconteck_task/core/app_images.dart';
+import 'package:iconteck_task/core/app_routes.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/category_navigator.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/category_screen_view_model.dart';
 import 'package:iconteck_task/widgets/app_app_bar.dart';
@@ -161,48 +163,58 @@ class _CategoryScreenState extends State<CategoryScreen> implements CategoryNavi
                             crossAxisSpacing: 10 ,
                             childAspectRatio: 0.6),
                             itemBuilder: (context , index) {
-                              return Stack(
-                                alignment: Alignment.topCenter,
-                                children: [
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25)
-                                    ),
-                                    elevation: 3,
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                appText(
-                                                    text: provider.productsList![index].title!.ar!,
-                                                    color: AppColors.primaryColor, fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                              ],
-                                            ),
-                                            appText(
-                                                text: provider.productsList![index].description!.ar!,
-                                                color: AppColors.greyColor, fontSize: 18,
-                                                fontWeight: FontWeight.bold ,
-                                            textAlight: TextAlign.end),
-                                             SizedBox(height: 10.h,),
-                                            const Row(
-                                              children: [
-                                                Icon(Icons.favorite_border)
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                              return InkWell(
+                                onTap: () {
+                                  context.pushNamed(context , AppRoutes.productDetailsRoute , {
+                                    "image" : provider.productsList![index].images![0].image! ,
+                                    "title" : provider.productsList![index].title!.ar,
+                                    "calories" : provider.productsList![index].calories ,
+                                    "price" : provider.productsList![index].customerPrice
+                                  });
+                                },
+                                child: Stack(
+                                  alignment: Alignment.topCenter,
+                                  children: [
+                                    Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(25)
                                       ),
-                                    ),),
-                                  Image(image: NetworkImage(provider.productsList![index].images![0].image!),
-                                  width: 100, height: 100,
-                                  fit: BoxFit.fill,)
-                                ],
+                                      elevation: 3,
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  appText(
+                                                      text: provider.productsList![index].title!.ar!,
+                                                      color: AppColors.primaryColor, fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                                ],
+                                              ),
+                                              appText(
+                                                  text: provider.productsList![index].description!.ar!,
+                                                  color: AppColors.greyColor, fontSize: 18,
+                                                  fontWeight: FontWeight.bold ,
+                                              textAlight: TextAlign.end),
+                                               SizedBox(height: 10.h,),
+                                              const Row(
+                                                children: [
+                                                  Icon(Icons.favorite_border)
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),),
+                                    Image(image: NetworkImage(provider.productsList![index].images![0].image!),
+                                    width: 100, height: 100,
+                                    fit: BoxFit.fill,)
+                                  ],
+                                ),
                               );
                             },
                             itemCount: provider.productsList!.length);

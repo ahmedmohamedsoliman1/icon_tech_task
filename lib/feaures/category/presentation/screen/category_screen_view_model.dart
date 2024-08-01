@@ -27,6 +27,8 @@ class CategoryScreenViewModel extends ChangeNotifier {
 
   bool isProductsDataLoading = false ;
 
+  int number = 1 ;
+
   void getAllCategories ({required String branchId}) async{
     isCategoriesDataLoading = true ;
     notifyListeners();
@@ -68,5 +70,17 @@ class CategoryScreenViewModel extends ChangeNotifier {
       print("lenght is : ${productsList!.length}");
        notifyListeners();
    });
+  }
+
+  void increaseNumber () {
+    number ++ ;
+    notifyListeners();
+  }
+
+  void decreaseNumber () {
+   if (number > 1){
+     number -- ;
+   }
+   notifyListeners();
   }
  }

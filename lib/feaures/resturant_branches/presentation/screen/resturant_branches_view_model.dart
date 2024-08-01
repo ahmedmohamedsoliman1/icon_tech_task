@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconteck_task/config/extensions/navigate_extension.dart';
+import 'package:iconteck_task/config/prefs/prefs.dart';
+import 'package:iconteck_task/config/prefs/prefs_keys.dart';
 import 'package:iconteck_task/core/app_colors.dart';
 import 'package:iconteck_task/core/app_routes.dart';
 import 'package:iconteck_task/core/app_strings.dart';
@@ -39,10 +41,11 @@ class RestaurantBranchesViewModel extends ChangeNotifier {
 
  GoogleMapController? mapController ;
 
- CustomInfoWindowController customInfoWindowController =
- CustomInfoWindowController();
+ CustomInfoWindowController customInfoWindowController = CustomInfoWindowController();
 
  bool isAllRestaurantBranchesLoading = false ;
+
+ String branchId = "" ;
 
  RestaurantBranchesViewModel ({required this.restaurantBranchesUseCase});
 
@@ -61,10 +64,10 @@ class RestaurantBranchesViewModel extends ChangeNotifier {
       print("tabed");
       customInfoWindowController.addInfoWindow!(
           InkWell(
-           onTap: () {
-            context.pushNamed(context , AppRoutes.categoryRoute ,
-            {
-             "branch_id" : response.data!.map((e)=> e.id).toList()[i]!.toString()
+           onTap: () async{
+            await Prefs.preferences.setString(PrefsKey.branchId, response.data!.map((e)=> e.id).toList()[i]!.toString()).then((_) {
+             print("saved branch id");
+             context.pushNamed(context , AppRoutes.categoryRoute , null);
             });
            },
             child: InfoWindowWidget(

@@ -83,7 +83,9 @@ class _RestaurantBranchesScreenState extends State<RestaurantBranchesScreen> imp
               }else {
                 return Stack(
                   children: [
-                    Expanded(
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
                       child: GoogleMap(
                         mapType: MapType.normal,
                         markers: viewModel.markers,

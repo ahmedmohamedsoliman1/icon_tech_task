@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconteck_task/config/dependency_injection/DP.dart';
+import 'package:iconteck_task/config/extensions/navigate_extension.dart';
 import 'package:iconteck_task/core/app_colors.dart';
+import 'package:iconteck_task/core/app_routes.dart';
 import 'package:iconteck_task/core/app_strings.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/category_screen_view_model.dart';
 import 'package:iconteck_task/feaures/category/presentation/widget/details_stack_widget_five.dart';
@@ -100,37 +102,47 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Stack(
-                                alignment: Alignment.topLeft,
-                                children: [
-                                  Container(
-                                    height: 60.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: AppColors.primaryColor ,
+                              InkWell(
+                                onTap : () {
+                                  context.pushNamed(context , AppRoutes.cardScreenRoute , null);
+                                   },
+                                child: Stack(
+                                  alignment: Alignment.topLeft,
+                                  children: [
+                                    Container(
+                                      height: 60.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: AppColors.primaryColor ,
+                                      ),
+                                      padding: const EdgeInsets.all(8),
+                                      child: const Icon(Icons.shopping_basket , color: AppColors.whiteColor,
+                                        size: 35,),
                                     ),
-                                    padding: const EdgeInsets.all(8),
-                                    child: const Icon(Icons.shopping_basket , color: AppColors.whiteColor,
-                                      size: 35,),
-                                  ),
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppColors.redColor ,
-                                    ),
-                                    padding: const EdgeInsets.all(5),
-                                    child: appText(
-                                        text: provider.number.toString(),
-                                        color: AppColors.whiteColor,
-                                        fontSize: 17 ,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: AppColors.redColor ,
+                                      ),
+                                      padding: const EdgeInsets.all(5),
+                                      child: appText(
+                                          text: provider.number.toString(),
+                                          color: AppColors.whiteColor,
+                                          fontSize: 17 ,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(width: 20.w,),
                               SizedBox(
                                 height: 60.h,
                                 child: customButton(() {
+                                   provider.addToCard(
+                                       title: args["title"],
+                                       image: args["image"],
+                                       price: args["price"] * provider.number,
+                                       quantity: provider.number);
                                      }, context,
                                    Row(
                                      children: [

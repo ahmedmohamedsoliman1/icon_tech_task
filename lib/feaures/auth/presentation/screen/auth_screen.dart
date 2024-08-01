@@ -216,6 +216,6 @@ class _AuthScreenState extends State<AuthScreen> implements AuthNavigator{
 
   @override
   void navigateToRestaurantBranches() {
-    context.pushNamed(context , AppRoutes.restaurantBranchesScreenRoute , null);
+    context.pushReplacement(context , AppRoutes.restaurantBranchesScreenRoute);
   }
 }

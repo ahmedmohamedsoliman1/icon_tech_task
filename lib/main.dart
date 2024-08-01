@@ -4,6 +4,7 @@ import 'package:iconteck_task/config/dependency_injection/DP.dart';
 import 'package:iconteck_task/config/prefs/prefs.dart';
 import 'package:iconteck_task/config/prefs/prefs_keys.dart';
 import 'package:iconteck_task/config/theming/app_theming.dart';
+import 'package:iconteck_task/feaures/category/presentation/screen/card_screen.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/category_screen.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/product_details_screen.dart';
 import 'package:iconteck_task/feaures/resturant_branches/presentation/screen/restauran_branches_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.restaurantBranchesScreenRoute : (context) => const RestaurantBranchesScreen() ,
           AppRoutes.categoryRoute : (context) => const CategoryScreen() ,
           AppRoutes.productDetailsRoute : (context) => const ProductDetailsScreen() ,
+          AppRoutes.cardScreenRoute : (context) => const CardScreen() ,
         },
       ),
     );

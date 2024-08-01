@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconteck_task/config/dependency_injection/DP.dart';
 import 'package:iconteck_task/config/prefs/prefs.dart';
+import 'package:iconteck_task/config/prefs/prefs_keys.dart';
 import 'package:iconteck_task/config/theming/app_theming.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/category_screen.dart';
 import 'package:iconteck_task/feaures/category/presentation/screen/product_details_screen.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         title: 'Icon tech task',
         theme: AppTheming.lightTheme,
         locale: const Locale("ar"),
-        initialRoute: AppRoutes.authScreenRoute,
+        initialRoute: Prefs.getData(key: PrefsKey.userToken) != null ?
+        AppRoutes.restaurantBranchesScreenRoute : AppRoutes.authScreenRoute,
         routes: {
           AppRoutes.authScreenRoute : (context) => const AuthScreen() ,
           AppRoutes.restaurantBranchesScreenRoute : (context) => const RestaurantBranchesScreen() ,

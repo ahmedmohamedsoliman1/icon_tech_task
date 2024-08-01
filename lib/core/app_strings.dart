@@ -12,4 +12,5 @@ class AppStrings {
   static const loading = "..... جارى البحث عن الفروع" ;
   static const address = "عنوان الفرع" ;
   static const arriveToBranch = "الوصول الى الفرع" ;
+  static const addToCard = "اضف الى السلة" ;
 }
